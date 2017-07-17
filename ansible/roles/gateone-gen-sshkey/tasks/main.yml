@@ -32,7 +32,7 @@
 
 - name: set the permissions on the private key file
   file:
-    path: "{{ KEY_LOC.path }}/{{ ATMOUSERNAME }}_default"
+    path: "{{ KEY_LOC.path }}/{{ ATMOUSERNAME }}{{ KEY_LOC.prefix }}_default"
     mode: 0600
     owner: "{{ KEY_LOC.owner }}"
     group: "{{ KEY_LOC.group }}"
@@ -41,14 +41,14 @@
 - name: add the key name to .default_ids
   lineinfile:
     dest: "{{ KEY_LOC.path }}/.default_ids"
-    line: "{{ ATMOUSERNAME }}_default"
+    line: "{{ ATMOUSERNAME }}{{ KEY_LOC.prefix }}_default"
     create: yes
     state: present
   delegate_to: "{{ play_on }}"
 
 - name: finally, transfer the public key locally
   fetch:
-    src: "{{ KEY_LOC.path }}/{{ ATMOUSERNAME }}_default.pub"
+    src: "{{ KEY_LOC.path }}/{{ ATMOUSERNAME }}{{ KEY_LOC.prefix }}_default.pub"
     dest: "{{ GATEONE_LOCAL_PUBKEY_DIR | default('/tmp/') }}"
     flat: yes
   delegate_to: "{{ play_on }}"
