@@ -20,7 +20,7 @@
 
 - name: check the existence of a given ssh key by name
   stat:
-    path: "{{ KEY_LOC.path }}/{{ ATMOUSERNAME }}_default"
+    path: "{{ KEY_LOC.path }}/{{ ATMOUSERNAME }}{{ KEY_LOC.prefix }}_default"
   register: go_key
   delegate_to: "{{ play_on }}"
 
