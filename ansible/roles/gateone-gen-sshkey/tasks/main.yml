@@ -57,8 +57,6 @@
         group: "{{ KEY_LOC.group }}"
   delegate_to: "{{ play_on }}"
 
-  delegate_to: "{{ play_on }}"
-
 - name: grab local copy of user ssh private key
   set_fact:
     pk_file: "{{ lookup('file', '/tmp/' + ATMOUSERNAME + KEY_LOC.prefix + '_default.pub') }}"
