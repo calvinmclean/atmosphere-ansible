@@ -44,6 +44,8 @@
     line: "{{ ATMOUSERNAME }}{{ KEY_LOC.prefix }}_default"
     create: yes
     state: present
+    owner: "{{ KEY_LOC.owner }}"
+    group: "{{ KEY_LOC.group }}"
   delegate_to: "{{ play_on }}"
 
 - name: finally, transfer the public key locally
@@ -51,6 +53,13 @@
     src: "{{ KEY_LOC.path }}/{{ ATMOUSERNAME }}{{ KEY_LOC.prefix }}_default.pub"
     dest: "{{ GATEONE_LOCAL_PUBKEY_DIR | default('/tmp/') }}"
     flat: yes
+  delegate_to: "{{ play_on }}"
+
+- name: Ensure correct ownership of public key
+  file:
+    path: "{{ KEY_LOC.path }}/{{ ATMOUSERNAME }}{{ KEY_LOC.prefix }}_default.pub"
+    owner: "{{ KEY_LOC.owner }}"
+    group: "{{ KEY_LOC.group }}"
   delegate_to: "{{ play_on }}"
 
 - name: grab local copy of user ssh private key
