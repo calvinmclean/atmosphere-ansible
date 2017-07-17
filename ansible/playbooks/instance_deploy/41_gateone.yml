@@ -6,6 +6,7 @@
       path: "/var/lib/gateone/users/{{ ATMOUSERNAME }}/.ssh"
       owner: root
       group: root
+      prefix: ""
     play_on: "shell"
   roles:
     - gateone-gen-sshkey
@@ -17,6 +18,7 @@
       path: "/etc/guacamole/keys/{{ ATMOUSERNAME }}"
       owner: tomcat7
       group: tomcat7
+      prefix: "_guac"
     play_on: "guac_server"
   roles:
     - gateone-gen-sshkey
