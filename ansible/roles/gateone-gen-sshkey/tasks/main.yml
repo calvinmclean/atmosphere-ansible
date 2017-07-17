@@ -18,41 +18,38 @@
     state: directory
   delegate_to: "{{ play_on }}"
 
-- name: check the existence of a given ssh key by name
-  stat:
-    path: "{{ KEY_LOC.path }}/{{ ATMOUSERNAME }}{{ KEY_LOC.prefix }}_default"
-  register: go_key
-  delegate_to: "{{ play_on }}"
+- block:
+    - name: check the existence of a given ssh key by name
+      stat:
+        path: "{{ KEY_LOC.path }}/{{ ATMOUSERNAME }}{{ KEY_LOC.prefix }}_default"
+      register: go_key
 
-- name: generate the public key
-  command: >
-    /usr/bin/ssh-keygen -N '' -t rsa -b 2048 -f {{ KEY_LOC.path }}/{{ ATMOUSERNAME }}{{ KEY_LOC.prefix }}_default -C {{ ATMOUSERNAME }}
-  when: go_key.stat.exists == False
-  delegate_to: "{{ play_on }}"
+    - name: generate the public key
+      command: >
+        /usr/bin/ssh-keygen -N '' -t rsa -b 2048 -f {{ KEY_LOC.path }}/{{ ATMOUSERNAME }}{{ KEY_LOC.prefix }}_default -C {{ ATMOUSERNAME }}
+      when: go_key.stat.exists == False
 
-- name: set the permissions on the private key file
-  file:
-    path: "{{ KEY_LOC.path }}/{{ ATMOUSERNAME }}{{ KEY_LOC.prefix }}_default"
-    mode: 0600
-    owner: "{{ KEY_LOC.owner }}"
-    group: "{{ KEY_LOC.group }}"
-  delegate_to: "{{ play_on }}"
+    - name: set the permissions on the private key file
+      file:
+        path: "{{ KEY_LOC.path }}/{{ ATMOUSERNAME }}{{ KEY_LOC.prefix }}_default"
+        mode: 0600
+        owner: "{{ KEY_LOC.owner }}"
+        group: "{{ KEY_LOC.group }}"
 
-- name: add the key name to .default_ids
-  lineinfile:
-    dest: "{{ KEY_LOC.path }}/.default_ids"
-    line: "{{ ATMOUSERNAME }}{{ KEY_LOC.prefix }}_default"
-    create: yes
-    state: present
-    owner: "{{ KEY_LOC.owner }}"
-    group: "{{ KEY_LOC.group }}"
-  delegate_to: "{{ play_on }}"
+    - name: add the key name to .default_ids
+      lineinfile:
+        dest: "{{ KEY_LOC.path }}/.default_ids"
+        line: "{{ ATMOUSERNAME }}{{ KEY_LOC.prefix }}_default"
+        create: yes
+        state: present
+        owner: "{{ KEY_LOC.owner }}"
+        group: "{{ KEY_LOC.group }}"
 
-- name: finally, transfer the public key locally
-  fetch:
-    src: "{{ KEY_LOC.path }}/{{ ATMOUSERNAME }}{{ KEY_LOC.prefix }}_default.pub"
-    dest: "{{ GATEONE_LOCAL_PUBKEY_DIR | default('/tmp/') }}"
-    flat: yes
+    - name: finally, transfer the public key locally
+      fetch:
+        src: "{{ KEY_LOC.path }}/{{ ATMOUSERNAME }}{{ KEY_LOC.prefix }}_default.pub"
+        dest: "{{ GATEONE_LOCAL_PUBKEY_DIR | default('/tmp/') }}"
+        flat: yes
   delegate_to: "{{ play_on }}"
 
 - name: Ensure correct ownership of public key
