@@ -55,7 +55,7 @@
 
 - name: grab local copy of user ssh private key
   set_fact:
-    pk_file: "{{ lookup('file', '/tmp/' + ATMOUSERNAME + '_default.pub') }}"
+    pk_file: "{{ lookup('file', '/tmp/' + ATMOUSERNAME + KEY_LOC.prefix + '_default.pub') }}"
   tags: debug
 
 - name: distribute the generated gate one key to the instance
