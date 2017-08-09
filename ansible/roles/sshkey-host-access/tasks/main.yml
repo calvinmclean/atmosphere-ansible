@@ -38,13 +38,13 @@
 
     - name: finally, transfer the public key locally
       fetch:
-        src: "{{ KEY_LOC_PATH }}/{{ ATMOUSERNAME }}{{ KEY_LOC_PREFIX }}_default.pub"
+        src: "{{ FULL_PUBKEY_PATH }}"
         dest: "{{ GATEONE_LOCAL_PUBKEY_DIR | default('/tmp/') }}"
         flat: yes
 
     - name: Ensure correct ownership of public key
       file:
-        path: "{{ KEY_LOC_PATH }}/{{ ATMOUSERNAME }}{{ KEY_LOC_PREFIX }}_default.pub"
+        path: "{{ FULL_PUBKEY_PATH }}"
         owner: "{{ KEY_LOC_OWNER }}"
         group: "{{ KEY_LOC_GROUP }}"
   delegate_to: "{{ play_on }}"

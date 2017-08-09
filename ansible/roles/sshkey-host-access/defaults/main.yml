@@ -5,3 +5,5 @@ KEY_LOC_OWNER: root
 KEY_LOC_GROUP: root
 KEY_LOC_PREFIX: ""
 play_on: "shell"
+
+FULL_PUBKEY_PATH: "{{ KEY_LOC_PATH }}/{{ ATMOUSERNAME }}{{ KEY_LOC_PREFIX }}_default.pub"
