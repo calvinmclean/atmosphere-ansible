@@ -49,17 +49,11 @@
         group: "{{ KEY_LOC_GROUP }}"
   delegate_to: "{{ target_host }}"
 
-- name: grab local copy of user ssh public key
-  set_fact:
-    pk_file: "{{ lookup('file', LOCAL_PUBKEY_DIR + ATMOUSERNAME + KEY_LOC_PREFIX + '_default.pub') }}"
-  tags: debug
-
 - name: distribute the generated pub key to the instance
   authorized_key:
-    key: "{{ pk_file }}"
+    key: "{{ lookup('file', LOCAL_PUBKEY_DIR + ATMOUSERNAME + KEY_LOC_PREFIX + '_default.pub') }}"
     state: present
     user: "{{ item }}"
-  when: pk_file is defined
   with_items:
     - "{{ ATMOUSERNAME }}"
   tags:
