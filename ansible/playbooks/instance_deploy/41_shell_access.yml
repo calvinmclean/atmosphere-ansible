@@ -8,7 +8,7 @@
     KEY_LOC_PREFIX: ""
     play_on: "shell"
   roles:
-    - gateone-gen-sshkey
+    - sshkey-host-access
 
 - name: this is the play for adding an ssh key to a guacamole user
   hosts: atmosphere
@@ -19,4 +19,4 @@
     KEY_LOC_PREFIX: "_guac"
     play_on: "guac_server"
   roles:
-    - gateone-gen-sshkey
+    - sshkey-host-access
