@@ -15,7 +15,7 @@
         path: "{{ KEY_LOC.path }}/{{ ATMOUSERNAME }}{{ KEY_LOC.prefix }}_default"
       register: go_key
 
-    - name: generate the public key
+    - name: generate the keypair
       command: >
         /usr/bin/ssh-keygen -N '' -t rsa -b 2048 -f {{ KEY_LOC.path }}/{{ ATMOUSERNAME }}{{ KEY_LOC.prefix }}_default -C {{ ATMOUSERNAME }}
       when: go_key.stat.exists == False
@@ -49,7 +49,7 @@
         group: "{{ KEY_LOC.group }}"
   delegate_to: "{{ play_on }}"
 
-- name: grab local copy of user ssh private key
+- name: grab local copy of user ssh public key
   set_fact:
     pk_file: "{{ lookup('file', '/tmp/' + ATMOUSERNAME + KEY_LOC.prefix + '_default.pub') }}"
   tags: debug
