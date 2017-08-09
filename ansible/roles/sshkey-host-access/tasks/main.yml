@@ -54,7 +54,7 @@
     pk_file: "{{ lookup('file', '/tmp/' + ATMOUSERNAME + KEY_LOC_PREFIX + '_default.pub') }}"
   tags: debug
 
-- name: distribute the generated gate one key to the instance
+- name: distribute the generated pub key to the instance
   authorized_key:
     key: "{{ pk_file }}"
     state: present
