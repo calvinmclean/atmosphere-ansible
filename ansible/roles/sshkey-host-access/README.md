@@ -15,6 +15,8 @@ Role Variables
 | KEY_LOC_GROUP           | yes      | root    | "root", "tomcat7"         | group of new keys                        |
 | KEY_LOC_PREFIX          | yes      | ""      | "_guac", ""               | prefix to name key for specific server   |
 | target_host             | yes      | shell   | "shell", "guac_server"    | hostname for delegated tasks             |
+| FULL_PUBKEY_PATH        | yes      |         |                           | simplifies long string of other variables|
+| FULL_PRIVKEY_PATH       | yes      |         |                           | simplifies long string of other variables|
 
 Example Playbook
 ----------------
