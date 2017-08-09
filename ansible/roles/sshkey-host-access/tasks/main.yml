@@ -7,7 +7,7 @@
     group: "{{ KEY_LOC_GROUP }}"
     mode: 0700
     state: directory
-  delegate_to: "{{ play_on }}"
+  delegate_to: "{{ target_host }}"
 
 - block:
     - name: check the existence of a given ssh key by name
@@ -47,7 +47,7 @@
         path: "{{ FULL_PUBKEY_PATH }}"
         owner: "{{ KEY_LOC_OWNER }}"
         group: "{{ KEY_LOC_GROUP }}"
-  delegate_to: "{{ play_on }}"
+  delegate_to: "{{ target_host }}"
 
 - name: grab local copy of user ssh public key
   set_fact:

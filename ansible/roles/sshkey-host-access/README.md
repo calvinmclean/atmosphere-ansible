@@ -14,7 +14,7 @@ Role Variables
 | KEY_LOC_OWNER           | yes      | root    | "root", "tomcat7"         | owner of new keys                        |
 | KEY_LOC_GROUP           | yes      | root    | "root", "tomcat7"         | group of new keys                        |
 | KEY_LOC_PREFIX          | yes      | ""      | "_guac", ""               | prefix to name key for specific server   |
-| play_on                 | yes      | shell   | "shell", "guac_server"    | hostname for delegated tasks             |
+| target_host             | yes      | shell   | "shell", "guac_server"    | hostname for delegated tasks             |
 
 Example Playbook
 ----------------
