@@ -51,7 +51,7 @@
 
 - name: distribute the generated pub key to the instance
   authorized_key:
-    key: "{{ lookup('file', LOCAL_PUBKEY_DIR + ATMOUSERNAME + KEY_LOC_PREFIX + '_default.pub') }}"
+    key: "{{ lookup('file', LOCAL_FULL_PUBKEY_PATH) }}"
     state: present
     user: "{{ item }}"
   with_items:
@@ -63,7 +63,7 @@
 - name: remove user key from controller node
   local_action:
     module: file
-    path: "{{ LOCAL_PUBKEY_DIR }}{{ ATMOUSERNAME }}_default.pub"
+    path: "{{ LOCAL_FULL_PUBKEY_PATH }}"
     state: absent
   tags:
     - ssh-keys
