@@ -61,7 +61,10 @@
     - debug
 
 - name: remove user key from controller node
-  local_action: file path=/tmp/{{ ATMOUSERNAME }}_default.pub state=absent
+  local_action:
+    module: file
+    path: "{{ LOCAL_PUBKEY_DIR }}{{ ATMOUSERNAME }}_default.pub"
+    state: absent
   tags:
     - ssh-keys
     - delete-key
