@@ -17,6 +17,7 @@ Role Variables
 | target_host             | yes      | shell   | "shell", "guac_server"    | hostname for delegated tasks             |
 | FULL_PUBKEY_PATH        | yes      |         |                           | simplifies long string of other variables|
 | FULL_PRIVKEY_PATH       | yes      |         |                           | simplifies long string of other variables|
+| LOCAL_FULL_PUBKEY_PATH  | yes      |         |                           | simplifies long string of other variables|
 
 Example Playbook
 ----------------
